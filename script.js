@@ -101,6 +101,8 @@ function getPasswordOptions() {
     let choseSpecialConf = confirm('Would you like to use special characters?');
     let userChoices = [passLength, lowerCaseConf, upperCaseConf, numbersConf, choseSpecialConf];
 
+    // veryfication that user chose at least one option,
+    // to provide data for generatePassword function.
     if (userChoices[1] === false && userChoices[2] === false && userChoices[3] === false && userChoices[3] === false) {
       alert('You must use, at least one of the presented options. Try Again.');
       return false;
@@ -108,13 +110,12 @@ function getPasswordOptions() {
     return userChoices;
     }
     
+    // Pop up for user when they provided wrong number od character
     else {
       alert('Please try puting a number beetwen 8 and 128.');
       return false;
     }  
-    
-  
-}
+  }
 
 
 // Function for getting a random element from an array
@@ -127,12 +128,17 @@ function getRandom(arr) {
 // Function to generate password with user input
 function generatePassword() {
   let userInput = getPasswordOptions();
+
+  // If statment to stop the code from progresing further. 
+  // Fixes error when user choses neither of the options.
   if (userInput === false) {
     return '';
   }
   let passwordArr = [];
   let password = '';
 
+  //Confiramtion included with the password for diffrent characters. 
+  //Adds one element when chosen 
   if (userInput[1]) {
     passwordArr.push(lowerCasedCharacters);
     password += getRandom(lowerCasedCharacters);
@@ -153,6 +159,7 @@ function generatePassword() {
       password += getRandom(specialCharacters);   
   }
 
+  //Loop to add remainig characters to the password.
   for (i = passwordArr.length; i < userInput[0]; i++) {
     let randomPassArr = getRandom(passwordArr);
     password += getRandom(randomPassArr);
